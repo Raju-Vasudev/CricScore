@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import Button from '@mui/material/Button';
 import { incrementRuns, addWicket, addBall, addExtra, decrementRuns, decrementBall, decrementExtra, decrementWickets, reset } from '../reducers/features/ScoreCardSlice';
 
 const ActionButtons = () => {
@@ -64,18 +65,23 @@ const ActionButtons = () => {
       setCanUndo(false);
     }
   }
+  const handleReset = () => {
+    dispatch(reset());
+    setActionHistory([]);
+    setCanUndo(false);
+  }
 
   return (
     <div>
-      <button onClick={() => handleRun(0)}>Dot Ball</button>
-      <button onClick={() => handleWicket()}>Wicket</button>
-      <button onClick={() => handleExtra('noBall')}>No Ball</button>
-      <button onClick={() => handleExtra('wide')}>Wide</button>
+      <Button onClick={() => handleRun(0)}>Dot Ball</Button>
+      <Button onClick={() => handleWicket()}>Wicket</Button>
+      <Button onClick={() => handleExtra('noBall')}>No Ball</Button>
+      <Button onClick={() => handleExtra('wide')}>Wide</Button>
       {[1, 2, 3, 4, 5, 6].map(run => (
-        <button key={run} onClick={() => handleRun(run)}>{run} Run{run > 1 ? 's' : ''}</button>
+        <Button key={run} onClick={() => handleRun(run)}>{run} Run{run > 1 ? 's' : ''}</Button>
       ))}
-      <button onClick={() => handleUndo()}>Undo</button>
-      <button onClick={() => dispatch(reset())}>Reset</button>
+      <Button onClick={() => handleUndo()}>Undo</Button>
+      <Button onClick={() => handleReset()}>Reset</Button>
     </div>
   );
 };
