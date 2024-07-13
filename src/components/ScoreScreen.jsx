@@ -10,7 +10,7 @@ const ScoreScreen = () => {
   return (
     <div>
       <h2>Score: {currentInnings.runs}/{currentInnings.wickets}</h2>
-      <h3>Over: {currentOvers}.{currentBalls}</h3>
+      <h3>Overs: {currentOvers}.{currentBalls}</h3>
     </div>
   );
 };
