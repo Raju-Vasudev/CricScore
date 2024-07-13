@@ -1,8 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import { useSelector , useDispatch } from 'react-redux';
-import { increment } from './reducers/features/scoreCardSlice';
-import Button from '@mui/material/Button';
+import ScoreScreen from './components/ScoreScreen';
+import ActionButtons from './components/ActionButtons';
 
 function App() {
   const dispatch = useDispatch();
@@ -13,12 +12,8 @@ function App() {
         <div>
           Score Card
         </div>
-        <div>
-          Score : {state.scoreCard.value}
-        </div>
-        <div>
-        <Button variant="contained" onClick={() => dispatch(increment())}>Outlined</Button>
-        </div>
+        <ScoreScreen />
+        <ActionButtons />
       </header>
     </div>
   );
