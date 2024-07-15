@@ -2,7 +2,7 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  gap:20px;
+  gap: 20px;
   width: calc(100% - 40px);
 }
 
@@ -12,7 +12,7 @@
 }
 
 @media (min-width: 600px) {
-  .ActionsContainer{
+  .ActionsContainer {
     width: 370px;
     margin: 0 auto;
   }

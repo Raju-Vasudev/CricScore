@@ -1,4 +1,3 @@
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialInningState = {
@@ -11,7 +10,7 @@ const initialInningState = {
     legByes: 0,
     noBalls: 0,
     wides: 0,
-    penalties: 0
+    penalties: 0,
   },
   totalOvers: 0,
 };
@@ -21,26 +20,27 @@ const initialState = {
   currentInning: 0,
   teams: {
     batting: '',
-    bowling: ''
+    bowling: '',
   },
   teamDetails: [
-      {
-        name: '',
-        players: [],
-        totalPlayers: 11
-      },
-      {
-        name: '',
-        players: [],
-        totalPlayers: 11
-      }
-     ],
+    {
+      name: '',
+      players: [],
+      totalPlayers: 11,
+    },
+    {
+      name: '',
+      players: [],
+      totalPlayers: 11,
+    },
+  ],
   matchStarted: false,
   totalOvers: 0,
   inningsCompleted: false,
   matchCompleted: false,
   target: 0,
   showSimpleScoreCard: false,
+  isGullyModeCricketMode: false,
 };
 
 export const scoreCardSlice = createSlice({
@@ -51,21 +51,23 @@ export const scoreCardSlice = createSlice({
       state.innings[state.currentInning].runs += action.payload;
     },
     addWicket: (state) => {
-      state.innings[state.currentInning].wickets += 1
+      state.innings[state.currentInning].wickets += 1;
     },
     addBall: (state) => {
-      state.innings[state.currentInning].totalBallsBowled += 1;      
+      state.innings[state.currentInning].totalBallsBowled += 1;
       const overs = Math.floor(state.innings[state.currentInning].totalBallsBowled / 6);
       const balls = state.innings[state.currentInning].totalBallsBowled % 6;
       const oc = overs + balls / 10;
       state.innings[state.currentInning].completedOvers = oc;
-      if(state.totalOvers > 0 && (state.innings[state.currentInning].completedOvers >= state.totalOvers)){
-        if(state.currentInning === 0){
+      if (
+        state.totalOvers > 0 &&
+        state.innings[state.currentInning].completedOvers >= state.totalOvers
+      ) {
+        if (state.currentInning === 0) {
           state.inningsCompleted = true;
           state.target = state.innings[0].runs + 1;
           state.currentInning = 1;
-        }
-        else{
+        } else {
           state.matchCompleted = true;
         }
       }
@@ -122,10 +124,24 @@ export const scoreCardSlice = createSlice({
     },
     startSimpleScoreCard: (state) => {
       state.showSimpleScoreCard = true;
-    }
+    },
   },
 });
 
-export const { startSimpleScoreCard, startMatch, reset, incrementRuns, addWicket, addBall, addExtra, switchInnings, setTarget, decrementBall, decrementExtra, decrementWickets, decrementRuns } = scoreCardSlice.actions;
+export const {
+  startSimpleScoreCard,
+  startMatch,
+  reset,
+  incrementRuns,
+  addWicket,
+  addBall,
+  addExtra,
+  switchInnings,
+  setTarget,
+  decrementBall,
+  decrementExtra,
+  decrementWickets,
+  decrementRuns,
+} = scoreCardSlice.actions;
 
 export default scoreCardSlice.reducer;
