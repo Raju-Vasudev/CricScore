@@ -68,7 +68,7 @@ const MatchDetails = () => {
   const handleOpenSnackbar = () => {
     setSnackbarOpen(true);
   };
-  const handleStartSimpleScoreCard = (RunsForWide=false, RunsForNoBall=false) => {
+  const handleStartSimpleScoreCard = (RunsForWide = false, RunsForNoBall = false) => {
     setOpenExtraRunsDialog(true);
     const isGullyModeCricketMode = {
       EnableExtraRunsForWide: RunsForWide,

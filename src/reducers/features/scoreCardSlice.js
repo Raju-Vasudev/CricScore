@@ -77,11 +77,14 @@ export const scoreCardSlice = createSlice({
     },
     addExtra: (state, action) => {
       const { type, runs } = action.payload;
-      console.log('isGullyModeCricketMode',state.isGullyModeCricketMode);
-      if(state.isGullyModeCricketMode.EnableExtraRunsForWide && state.isGullyModeCricketMode.EnableExtraRunsForNoBall){
-      state.innings[state.currentInning].extras[type] += 1;
-      state.innings[state.currentInning].runs += runs;
-         }
+      console.log('isGullyModeCricketMode', state.isGullyModeCricketMode);
+      if (
+        state.isGullyModeCricketMode.EnableExtraRunsForWide &&
+        state.isGullyModeCricketMode.EnableExtraRunsForNoBall
+      ) {
+        state.innings[state.currentInning].extras[type] += 1;
+        state.innings[state.currentInning].runs += runs;
+      }
       // if (type === 'byes' || type === 'legByes') {
       //   state.innings[state.currentInning].currentOvers -= 1;
       // }
@@ -128,10 +131,11 @@ export const scoreCardSlice = createSlice({
       state.currentInning = action.payload.currentInning;
       state.innings[0].totalOvers = action.payload.totalOvers;
     },
-    startSimpleScoreCard: (state,action) => {
+    startSimpleScoreCard: (state, action) => {
       state.showSimpleScoreCard = true;
-      console.log("pl",action.payload);
-      state.isGullyModeCricketMode.EnableExtraRunsForNoBall = action.payload.EnableExtraRunsForNoBall;
+      console.log('pl', action.payload);
+      state.isGullyModeCricketMode.EnableExtraRunsForNoBall =
+        action.payload.EnableExtraRunsForNoBall;
       state.isGullyModeCricketMode.EnableExtraRunsForWide = action.payload.EnableExtraRunsForWide;
     },
   },
