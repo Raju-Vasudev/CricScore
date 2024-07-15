@@ -103,7 +103,7 @@ const ActionButtons = () => {
   return (
     ((matchStarted && !inningsCompleted) || showSimpleScoreCard) && (
       <>
-        <DeliveryMap deliveries={deliveries} />
+        {deliveries.length > 0 && <DeliveryMap deliveries={deliveries} />}
         <div className="ActionsContainer">
           <Button variant="outlined" className="button" onClick={() => handleRun(0)}>
             Dot Ball

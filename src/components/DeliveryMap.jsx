@@ -1,6 +1,8 @@
 import React from 'react';
+import './DeliveryMap.css';
 
 function DeliveryMap({ deliveries }) {
+  const containerRef = React.useRef(null);
   const maxDotsPerRow = 6;
   const svgWidth = 400;
   const rowHeight = 50;
@@ -65,29 +67,36 @@ function DeliveryMap({ deliveries }) {
     return lines;
   };
 
-  return (
-    <svg width={svgWidth} height={svgHeight} style={{ border: '1px solid black' }}>
-      {deliveries.map((delivery, index) => {
-        const { x, y } = calculatePosition(index);
-        const lines = drawLines(index);
+  React.useEffect(() => {
+    const lastDot = containerRef.current.lastChild;
+    lastDot.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }, [deliveries]);
 
-        return (
-          <React.Fragment key={index}>
-            {lines}
-            <circle cx={x} cy={y} r={dotRadius} fill="white" />
-            <text
-              x={x}
-              y={y + dotRadius / 2 - 5}
-              dominantBaseline="middle"
-              textAnchor="middle"
-              style={{ fontSize: '15px', fontWeight: 'bold', userSelect: 'none' }}
-            >
-              {delivery}
-            </text>
-          </React.Fragment>
-        );
-      })}
-    </svg>
+  return (
+    <div className="dotContainer" ref={containerRef}>
+      <svg width={svgWidth} height={svgHeight} style={{ border: '1px solid black' }}>
+        {deliveries.map((delivery, index) => {
+          const { x, y } = calculatePosition(index);
+          const lines = drawLines(index);
+
+          return (
+            <React.Fragment key={index}>
+              {lines}
+              <circle cx={x} cy={y} r={dotRadius} fill="white" />
+              <text
+                x={x}
+                y={y + dotRadius / 2 - 5}
+                dominantBaseline="middle"
+                textAnchor="middle"
+                style={{ fontSize: '15px', fontWeight: 'bold', userSelect: 'none' }}
+              >
+                {delivery}
+              </text>
+            </React.Fragment>
+          );
+        })}
+      </svg>
+    </div>
   );
 }
 

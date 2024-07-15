@@ -1,0 +1,28 @@
+.dotContainer {
+  max-height: 100px; /* Adjust based on your dot and gap sizes */
+  min-height: 100px; /* Adjust based on your dot and gap sizes */
+  overflow-y: auto;
+  display: flex;
+  margin-bottom: 30px;
+}
+
+/* Styles the scrollbar itself */
+.deliveryMapContainer::-webkit-scrollbar {
+  width: 12px; /* width of the entire scrollbar */
+}
+
+/* Styles the scrollbar track */
+.deliveryMapContainer::-webkit-scrollbar-track {
+  background: #f1f1f1; /* color of the tracking area */
+}
+
+/* Styles the scrollbar thumb (the draggable part) */
+.deliveryMapContainer::-webkit-scrollbar-thumb {
+  background: #888; /* color of the scroll thumb */
+  border-radius: 6px; /* roundness of the scroll thumb */
+}
+
+/* Styles the scrollbar thumb on hover */
+.deliveryMapContainer::-webkit-scrollbar-thumb:hover {
+  background: #351fe2; /* color of the scroll thumb on hover */
+}
