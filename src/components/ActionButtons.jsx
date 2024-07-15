@@ -11,29 +11,37 @@ import {
   decrementExtra,
   decrementWickets,
   reset,
+  setDeliveryMapInEachOver,
 } from '../reducers/features/ScoreCardSlice';
 import './ActionButtons.css';
 
 const ActionButtons = () => {
   const dispatch = useDispatch();
-  const { inningsCompleted, matchStarted, showSimpleScoreCard } = useSelector(
-    (state) => state.scoreCard,
-  );
+  const {
+    innings,
+    currentInning,
+    inningsCompleted,
+    matchStarted,
+    showSimpleScoreCard,
+    isOverCompleted,
+  } = useSelector((state) => state.scoreCard);
   const [actionHistory, setActionHistory] = useState([]);
   const [canUndo, setCanUndo] = useState(false);
-
+  const [deliveries, setDeliveries] = useState([]);
   const updateActionHistory = (action) => {
     setActionHistory([...actionHistory, action]);
     setCanUndo(true);
   };
-
   const handleRun = (runs) => {
     dispatch(incrementRuns(runs));
     handleValidBall();
+    handleDelivery(runs);
     updateActionHistory({ action: 'run', runs });
   };
   const handleExtra = (type) => {
     dispatch(addExtra({ type, runs: 1 }));
+    const oc = type === 'noBall' ? 'nb' : type === 'wide' ? 'wd' : type;
+    handleDelivery(oc);
     if (type !== 'noBall' && type !== 'wide') {
       handleValidBall();
     }
@@ -42,6 +50,7 @@ const ActionButtons = () => {
   const handleWicket = () => {
     dispatch(addWicket());
     handleValidBall();
+    handleDelivery('w');
     updateActionHistory({ action: 'wicket' });
   };
   const handleUndo = () => {
@@ -80,6 +89,15 @@ const ActionButtons = () => {
   const handleValidBall = () => {
     dispatch(addBall());
   };
+  const handleDelivery = (outcome) => {
+    setDeliveries((deliveries) => [...deliveries, outcome]);
+  };
+  React.useEffect(() => {
+    if (isOverCompleted) {
+      dispatch(setDeliveryMapInEachOver(deliveries));
+      setDeliveries([]);
+    }
+  }, [isOverCompleted]);
   return (
     ((matchStarted && !inningsCompleted) || showSimpleScoreCard) && (
       <div className="ActionsContainer">

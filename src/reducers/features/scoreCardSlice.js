@@ -13,15 +13,12 @@ const initialInningState = {
     penalties: 0,
   },
   totalOvers: 0,
+  deliveryMapInEachOver: [],
 };
 
 const initialState = {
   innings: [initialInningState, { ...initialInningState }],
   currentInning: 0,
-  teams: {
-    batting: '',
-    bowling: '',
-  },
   teamDetails: [
     {
       name: '',
@@ -44,6 +41,7 @@ const initialState = {
     EnableExtraRunsForWide: false,
     EnableExtraRunsForNoBall: false,
   },
+  isOverCompleted: false,
 };
 
 export const scoreCardSlice = createSlice({
@@ -62,6 +60,9 @@ export const scoreCardSlice = createSlice({
       const balls = state.innings[state.currentInning].totalBallsBowled % 6;
       const oc = overs + balls / 10;
       state.innings[state.currentInning].completedOvers = oc;
+      if (balls === 0 && state.innings[state.currentInning].totalBallsBowled !== 0) {
+        state.isOverCompleted = true;
+      }
       if (
         state.totalOvers > 0 &&
         state.innings[state.currentInning].completedOvers >= state.totalOvers
@@ -138,6 +139,10 @@ export const scoreCardSlice = createSlice({
         action.payload.EnableExtraRunsForNoBall;
       state.isGullyModeCricketMode.EnableExtraRunsForWide = action.payload.EnableExtraRunsForWide;
     },
+    setDeliveryMapInEachOver: (state, action) => {
+      state.innings[state.currentInning].deliveryMapInEachOver.push(action.payload);
+      state.isOverCompleted = false;
+    },
   },
 });
 
@@ -155,6 +160,7 @@ export const {
   decrementExtra,
   decrementWickets,
   decrementRuns,
+  setDeliveryMapInEachOver,
 } = scoreCardSlice.actions;
 
 export default scoreCardSlice.reducer;
