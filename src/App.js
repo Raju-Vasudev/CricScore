@@ -7,7 +7,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         <div>
-        <ToggleThemeButton />
+        {/* <ToggleThemeButton /> */}
         </div>
         <HomeScorePage />
       </header>

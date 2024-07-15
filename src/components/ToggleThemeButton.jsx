@@ -9,7 +9,6 @@ function ToggleThemeButton() {
   const dispatch = useDispatch();
   const handleThemeChange = () => {
     dispatch(toggleTheme());
-    console.log('Theme changed');
   };
   return (
     <Button variant="contained" color="primary" onClick={() => handleThemeChange()}> Toggle Theme</Button>
