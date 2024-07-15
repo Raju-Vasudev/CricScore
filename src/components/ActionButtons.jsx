@@ -14,6 +14,7 @@ import {
   setDeliveryMapInEachOver,
 } from '../reducers/features/ScoreCardSlice';
 import './ActionButtons.css';
+import DeliveryMap from './DeliveryMap';
 
 const ActionButtons = () => {
   const dispatch = useDispatch();
@@ -40,7 +41,7 @@ const ActionButtons = () => {
   };
   const handleExtra = (type) => {
     dispatch(addExtra({ type, runs: 1 }));
-    const oc = type === 'noBall' ? 'nb' : type === 'wide' ? 'wd' : type;
+    const oc = type === 'noBall' ? 'NB' : type === 'wide' ? 'WD' : type;
     handleDelivery(oc);
     if (type !== 'noBall' && type !== 'wide') {
       handleValidBall();
@@ -50,7 +51,7 @@ const ActionButtons = () => {
   const handleWicket = () => {
     dispatch(addWicket());
     handleValidBall();
-    handleDelivery('w');
+    handleDelivery('W');
     updateActionHistory({ action: 'wicket' });
   };
   const handleUndo = () => {
@@ -85,6 +86,7 @@ const ActionButtons = () => {
     dispatch(reset());
     setActionHistory([]);
     setCanUndo(false);
+    setDeliveries([]);
   };
   const handleValidBall = () => {
     dispatch(addBall());
@@ -100,31 +102,34 @@ const ActionButtons = () => {
   }, [isOverCompleted]);
   return (
     ((matchStarted && !inningsCompleted) || showSimpleScoreCard) && (
-      <div className="ActionsContainer">
-        <Button variant="outlined" className="button" onClick={() => handleRun(0)}>
-          Dot Ball
-        </Button>
-        <Button variant="outlined" className="button" onClick={() => handleWicket()}>
-          Wicket
-        </Button>
-        <Button variant="outlined" className="button" onClick={() => handleExtra('noBall')}>
-          No Ball
-        </Button>
-        <Button variant="outlined" className="button" onClick={() => handleExtra('wide')}>
-          Wide
-        </Button>
-        {[1, 2, 3, 4, 5, 6].map((run) => (
-          <Button variant="outlined" className="button" key={run} onClick={() => handleRun(run)}>
-            {run} Run{run > 1 ? 's' : ''}
+      <>
+        <DeliveryMap deliveries={deliveries} />
+        <div className="ActionsContainer">
+          <Button variant="outlined" className="button" onClick={() => handleRun(0)}>
+            Dot Ball
           </Button>
-        ))}
-        <Button variant="outlined" className="button" onClick={() => handleUndo()}>
-          Undo
-        </Button>
-        <Button variant="outlined" className="button" onClick={() => handleReset()}>
-          Reset
-        </Button>
-      </div>
+          <Button variant="outlined" className="button" onClick={() => handleWicket()}>
+            Wicket
+          </Button>
+          <Button variant="outlined" className="button" onClick={() => handleExtra('noBall')}>
+            No Ball
+          </Button>
+          <Button variant="outlined" className="button" onClick={() => handleExtra('wide')}>
+            Wide
+          </Button>
+          {[1, 2, 3, 4, 5, 6].map((run) => (
+            <Button variant="outlined" className="button" key={run} onClick={() => handleRun(run)}>
+              {run} Run{run > 1 ? 's' : ''}
+            </Button>
+          ))}
+          <Button variant="outlined" className="button" onClick={() => handleUndo()}>
+            Undo
+          </Button>
+          <Button variant="outlined" className="button" onClick={() => handleReset()}>
+            Reset
+          </Button>
+        </div>
+      </>
     )
   );
 };
