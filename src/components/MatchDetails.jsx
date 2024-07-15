@@ -9,6 +9,7 @@ import {
   DialogTitle,
   TextField,
   Snackbar,
+  DialogContentText,
 } from '@mui/material';
 
 const MatchDetails = () => {
@@ -16,11 +17,11 @@ const MatchDetails = () => {
     useSelector((state) => state.scoreCard);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
+  const [openExtraRunsDialog, setOpenExtraRunsDialog] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [teamOneName, setTeamOneName] = useState('');
   const [teamTwoName, setTeamTwoName] = useState('');
   const [totalMatchOvers, setTotalMatchOvers] = useState(0);
-
   const handleStartMatch = () => {
     if (teamOneName === '' || teamTwoName === '') {
       handleOpenSnackbar();
@@ -54,6 +55,7 @@ const MatchDetails = () => {
       handleOpenSnackbar();
     }
     setOpen(false);
+    setOpenExtraRunsDialog(false);
     setTeamOneName('');
     setTeamTwoName('');
   };
@@ -65,6 +67,15 @@ const MatchDetails = () => {
   };
   const handleOpenSnackbar = () => {
     setSnackbarOpen(true);
+  };
+  const handleStartSimpleScoreCard = (RunsForWide=false, RunsForNoBall=false) => {
+    setOpenExtraRunsDialog(true);
+    const isGullyModeCricketMode = {
+      EnableExtraRunsForWide: RunsForWide,
+      EnableExtraRunsForNoBall: RunsForNoBall,
+    };
+    setOpenExtraRunsDialog(false);
+    dispatch(startSimpleScoreCard(isGullyModeCricketMode));
   };
   const MatchDetailsDialog = () => {
     return (
@@ -128,9 +139,33 @@ const MatchDetails = () => {
       />
     );
   };
-  const handleStartSimpleScoreCard = () => {
-    dispatch(startSimpleScoreCard());
+  const ExtraRunsConfirmationDialog = () => {
+    return (
+      <Dialog open={openExtraRunsDialog} onClose={handleClose}>
+        <DialogTitle>Enter Extra Runs</DialogTitle>
+        <DialogContent>
+          <DialogContentText>Is there a run for a wide/no ball?</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleNoForExtraRunConfirmation}>No</Button>
+          <Button onClick={handleYesForExtraRunConfirmation} autoFocus>
+            Yes
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
   };
+  const handleNoForExtraRunConfirmation = () => {
+    const extraRunsForWide = false;
+    const extraRunsForNoBall = false;
+    handleStartSimpleScoreCard(extraRunsForWide, extraRunsForNoBall);
+  };
+  const handleYesForExtraRunConfirmation = () => {
+    const extraRunsForWide = true;
+    const extraRunsForNoBall = true;
+    handleStartSimpleScoreCard(extraRunsForWide, extraRunsForNoBall);
+  };
+
   return (
     <>
       {!matchStarted && !showSimpleScoreCard && (
@@ -140,7 +175,7 @@ const MatchDetails = () => {
       )}
       <br />
       {!matchStarted && !showSimpleScoreCard && (
-        <Button variant="contained" color="primary" onClick={() => handleStartSimpleScoreCard()}>
+        <Button variant="contained" color="primary" onClick={() => setOpenExtraRunsDialog(true)}>
           Create Simple Score Card
         </Button>
       )}
@@ -155,6 +190,7 @@ const MatchDetails = () => {
       )}
       {MatchDetailsDialog()}
       {SnackBar()}
+      {ExtraRunsConfirmationDialog()}
     </>
   );
 };
