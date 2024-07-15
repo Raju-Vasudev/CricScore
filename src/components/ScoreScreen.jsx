@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import DeliveryMap from './DeliveryMap';
 
 const ScoreScreen = () => {
   // const { innings, currentInning, matchStarted, showSimpleScoreCard } = useSelector(state => state.scoreCard);
