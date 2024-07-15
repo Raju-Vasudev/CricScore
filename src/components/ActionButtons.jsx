@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@mui/material/Button';
 import { incrementRuns, addWicket, addBall, addExtra, decrementRuns, decrementBall, decrementExtra, decrementWickets, reset } from '../reducers/features/ScoreCardSlice';
+import './ActionButtons.css';
 
 const ActionButtons = () => {
   const dispatch = useDispatch();
@@ -69,21 +70,18 @@ const ActionButtons = () => {
     dispatch(addBall());
   }
   return (
-    <div>
-      { ((matchStarted && !inningsCompleted) || showSimpleScoreCard )  &&
-        <>      
-          <Button onClick={() => handleRun(0)}>Dot Ball</Button>
-          <Button onClick={() => handleWicket()}>Wicket</Button>
-          <Button onClick={() => handleExtra('noBall')}>No Ball</Button>
-          <Button onClick={() => handleExtra('wide')}>Wide</Button>
-          {[1, 2, 3, 4, 5, 6].map(run => (
-            <Button key={run} onClick={() => handleRun(run)}>{run} Run{run > 1 ? 's' : ''}</Button>
-          ))}
-          <Button onClick={() => handleUndo()}>Undo</Button>
-          <Button onClick={() => handleReset()}>Reset</Button>
-        </>
-        }
-    </div>
+    ((matchStarted && !inningsCompleted) || showSimpleScoreCard )  &&
+      <div className='ActionsContainer'>
+            <Button variant='outlined' className='button' onClick={() => handleRun(0)}>Dot Ball</Button>
+            <Button variant='outlined' className='button' onClick={() => handleWicket()}>Wicket</Button>
+            <Button variant='outlined' className='button' onClick={() => handleExtra('noBall')}>No Ball</Button>
+            <Button variant='outlined' className='button' onClick={() => handleExtra('wide')}>Wide</Button>
+            {[1, 2, 3, 4, 5, 6].map(run => (
+              <Button variant='outlined' className='button' key={run} onClick={() => handleRun(run)}>{run} Run{run > 1 ? 's' : ''}</Button>
+            ))}
+            <Button variant='outlined' className='button' onClick={() => handleUndo()}>Undo</Button>
+            <Button variant='outlined' className='button' onClick={() => handleReset()}>Reset</Button>
+      </div>
   );
 };
 
