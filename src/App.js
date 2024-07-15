@@ -1,6 +1,5 @@
 import './App.css';
-import ScoreScreen from './components/ScoreScreen';
-import ActionButtons from './components/ActionButtons';
+import HomeScorePage from './pages/HomeScorePage';
 import ToggleThemeButton from './components/ToggleThemeButton';
 
 function App() {
@@ -10,8 +9,7 @@ function App() {
         <div>
         <ToggleThemeButton />
         </div>
-        <ScoreScreen />
-        <ActionButtons />
+        <HomeScorePage />
       </header>
     </div>
   );
