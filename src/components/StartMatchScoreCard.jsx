@@ -12,7 +12,7 @@ import {
   DialogContentText,
 } from '@mui/material';
 
-const MatchDetails = () => {
+const StartMatchScoreCard = () => {
   const { teamDetails, currentInning, matchStarted, totalOvers, target, showSimpleScoreCard } =
     useSelector((state) => state.scoreCard);
   const dispatch = useDispatch();
@@ -195,4 +195,4 @@ const MatchDetails = () => {
   );
 };
 
-export default MatchDetails;
+export default StartMatchScoreCard;

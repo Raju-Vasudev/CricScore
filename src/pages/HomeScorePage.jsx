@@ -1,12 +1,12 @@
 import React from 'react';
 import Actions from '../components/Actions';
 import ScoreScreen from '../components/ScoreScreen';
-import MatchDetails from '../components/MatchDetails';
+import StartMatchScoreCard from '../components/StartMatchScoreCard';
 
 function HomeScorePage() {
   return (
     <>
-      <MatchDetails />
+      <StartMatchScoreCard />
       <ScoreScreen />
       <Actions />
     </>
