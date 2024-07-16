@@ -10,9 +10,6 @@ const ScoreScreen = () => {
   const completedOvers = useSelector(
     (state) => state.scoreCard.innings[state.scoreCard.currentInning].completedOvers,
   );
-  const deliveries = useSelector(
-    (state) => state.scoreCard.innings[currentInning].deliveryMapInEachOver,
-  );
   const currentInnings = innings[currentInning];
   return (
     <>
@@ -23,7 +20,6 @@ const ScoreScreen = () => {
               Score: {currentInnings.runs}/{currentInnings.wickets}
             </h2>
             <h3>Overs: {completedOvers}</h3>
-            {/* <DeliveryMap deliveries={deliveries}/> */}
           </div>
         </>
       )}
