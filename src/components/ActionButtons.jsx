@@ -114,6 +114,11 @@ const ActionButtons = () => {
           <Button variant="outlined" className="button" onClick={() => handleRun(0)}>
             Dot Ball
           </Button>
+          {[1, 2, 3, 4, 6].map((run) => (
+            <Button variant="outlined" className="button" key={run} onClick={() => handleRun(run)}>
+              {run} Run{run > 1 ? 's' : ''}
+            </Button>
+          ))}
           <Button variant="outlined" className="button" onClick={() => handleWicket()}>
             Wicket
           </Button>
@@ -123,14 +128,9 @@ const ActionButtons = () => {
           <Button variant="outlined" className="button" onClick={() => handleExtra('wide')}>
             Wide
           </Button>
-          {[1, 2, 3, 4, 5, 6].map((run) => (
-            <Button variant="outlined" className="button" key={run} onClick={() => handleRun(run)}>
-              {run} Run{run > 1 ? 's' : ''}
-            </Button>
-          ))}
-          <Button variant="outlined" className="button" onClick={() => handleUndo()}>
+          {/* <Button variant="outlined" className="button" onClick={() => handleUndo()}>
             Undo
-          </Button>
+          </Button> */}
           <Button variant="outlined" className="button" onClick={() => handleReset()}>
             Reset
           </Button>
