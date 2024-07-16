@@ -1,5 +1,5 @@
 import React from 'react';
-import ActionButtons from '../components/ActionButtons';
+import Actions from '../components/Actions';
 import ScoreScreen from '../components/ScoreScreen';
 import MatchDetails from '../components/MatchDetails';
 
@@ -8,7 +8,7 @@ function HomeScorePage() {
     <>
       <MatchDetails />
       <ScoreScreen />
-      <ActionButtons />
+      <Actions />
     </>
   );
 }

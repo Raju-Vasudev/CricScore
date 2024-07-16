@@ -13,7 +13,7 @@ import {
   reset,
   setDeliveryMapInEachOver,
 } from '../reducers/features/ScoreCardSlice';
-import './ActionButtons.css';
+import './Actions.css';
 import DeliveryMap from './DeliveryMap';
 
 const ActionButtons = () => {
