@@ -107,7 +107,7 @@ const ActionButtons = () => {
   return (
     ((matchStarted && !inningsCompleted) || showSimpleScoreCard) && (
       <>
-        {deliveries.length > 0 && (
+        {deliveries.length >= 0 && (
           <DeliveryMap deliveries={deliveries} updateDeliveries={updateDeliveries} />
         )}
         <div className="ActionsContainer">
