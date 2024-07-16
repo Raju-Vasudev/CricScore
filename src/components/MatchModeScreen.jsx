@@ -14,7 +14,7 @@ function MatchModeScreen() {
   const { teamDetails, currentInning, matchStarted, totalOvers, target } = useSelector(
     (state) => state.scoreCard,
   );
-  const [expanded, setExpanded] = React.useState(false);
+  const [expanded, setExpanded] = React.useState(true);
   const isLongName = teamDetails.some((team) => team.name.length > 15);
   const handleExpandClick = () => {
     setExpanded(!expanded);
