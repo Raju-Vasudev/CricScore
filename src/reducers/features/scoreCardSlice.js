@@ -141,7 +141,8 @@ export const scoreCardSlice = createSlice({
     },
     startSimpleScoreCard: (state, action) => {
       state.showSimpleScoreCard = true;
-      state.isGullyModeCricketMode.EnableExtraRunsForNoBall = action.payload.EnableExtraRunsForNoBall;
+      state.isGullyModeCricketMode.EnableExtraRunsForNoBall =
+        action.payload.EnableExtraRunsForNoBall;
       state.isGullyModeCricketMode.EnableExtraRunsForWide = action.payload.EnableExtraRunsForWide;
     },
     setDeliveryMapInEachOver: (state, action) => {

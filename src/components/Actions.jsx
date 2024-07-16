@@ -111,27 +111,58 @@ const ActionButtons = () => {
           <DeliveryMap deliveries={deliveries} updateDeliveries={updateDeliveries} />
         )}
         <div className="ActionsContainer">
-          <Button variant="contained" color='primary' className="button" onClick={() => handleRun(0)}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => handleRun(0)}
+          >
             Dot Ball
           </Button>
           {[1, 2, 3, 4, 6].map((run) => (
-            <Button variant="contained" color='primary' className="button" key={run} onClick={() => handleRun(run)}>
+            <Button
+              variant="contained"
+              color="primary"
+              className="button"
+              key={run}
+              onClick={() => handleRun(run)}
+            >
               {run} Run{run > 1 ? 's' : ''}
             </Button>
           ))}
-          <Button variant="contained" color='primary' className="button" onClick={() => handleWicket()}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => handleWicket()}
+          >
             Wicket
           </Button>
-          <Button variant="contained" color='primary' className="button" onClick={() => handleExtra('noBall')}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => handleExtra('noBall')}
+          >
             No Ball
           </Button>
-          <Button variant="contained" color='primary' className="button" onClick={() => handleExtra('wide')}>
+          <Button
+            variant="contained"
+            color="primary"
+            className="button"
+            onClick={() => handleExtra('wide')}
+          >
             Wide
           </Button>
           {/* <Button variant="outlined" className="button" onClick={() => handleUndo()}>
             Undo
           </Button> */}
-          <Button variant="contained" color='secondary' className="button" onClick={() => handleReset()}>
+          <Button
+            variant="contained"
+            color="secondary"
+            className="button"
+            onClick={() => handleReset()}
+          >
             Reset
           </Button>
         </div>
