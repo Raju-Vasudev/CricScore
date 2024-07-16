@@ -18,7 +18,6 @@ const ScoreScreen = () => {
     (state) => state.scoreCard.innings[state.scoreCard.currentInning].completedOvers,
   );
   const currentInnings = innings[currentInning];
-
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
   const [runs, setRuns] = useState(currentInnings.runs);
@@ -114,7 +113,7 @@ const ScoreScreen = () => {
                 <h2>
                   Score: {currentInnings.runs}/{currentInnings.wickets}
                 </h2>
-                <h3>Overs: {completedOvers}</h3>
+                <h2>Overs: {completedOvers}</h2>
               </>
             )}
           </div>

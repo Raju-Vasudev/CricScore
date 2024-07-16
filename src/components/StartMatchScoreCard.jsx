@@ -11,6 +11,7 @@ import {
   Snackbar,
   DialogContentText,
 } from '@mui/material';
+import MatchModeScreen from './MatchModeScreen';
 
 const StartMatchScoreCard = () => {
   const { teamDetails, currentInning, matchStarted, totalOvers, target, showSimpleScoreCard } =
@@ -179,7 +180,7 @@ const StartMatchScoreCard = () => {
           Create Simple Score Card
         </Button>
       )}
-      {matchStarted && (
+      {/* {matchStarted && (
         <div>
           <h2>Match Details</h2>
           <h3>Team 1: {teamDetails[0].name}</h3>
@@ -187,7 +188,7 @@ const StartMatchScoreCard = () => {
           <h3>Total Overs: {totalOvers}</h3>
           {currentInning > 0 && <h3>Target: {target}</h3>}
         </div>
-      )}
+      )} */}
       {MatchDetailsDialog()}
       {SnackBar()}
       {ExtraRunsConfirmationDialog()}
