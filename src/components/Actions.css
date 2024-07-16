@@ -9,6 +9,8 @@
 .button {
   width: calc((100% - 40px) / 3 - 8px);
   margin: 3px;
+  cursor: pointer;
+  transition: background-color 0.3s transform 0.3s;
 }
 
 @media (min-width: 600px) {
