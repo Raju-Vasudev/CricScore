@@ -10,11 +10,12 @@ import {
   TextField,
   Snackbar,
   DialogContentText,
+  Typography,
+  Box,
 } from '@mui/material';
 
 const StartMatchScoreCard = () => {
-  const { matchStarted, showSimpleScoreCard } =
-    useSelector((state) => state.scoreCard);
+  const { matchStarted, showSimpleScoreCard } = useSelector((state) => state.scoreCard);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const [openExtraRunsDialog, setOpenExtraRunsDialog] = useState(false);
@@ -35,7 +36,13 @@ const StartMatchScoreCard = () => {
     return totalOvers;
   };
   const handleStartMatch = () => {
-    if (teamOneName === '' || teamTwoName === '' || totalMatchOvers === 0 || totalMatchOvers === '' || isNaN(totalMatchOvers)) {
+    if (
+      teamOneName === '' ||
+      teamTwoName === '' ||
+      totalMatchOvers === 0 ||
+      totalMatchOvers === '' ||
+      isNaN(totalMatchOvers)
+    ) {
       handleOpenSnackbar();
     }
     console.log('totalOvers', totalMatchOvers);
@@ -183,15 +190,31 @@ const StartMatchScoreCard = () => {
   return (
     <>
       {!matchStarted && !showSimpleScoreCard && (
-        <Button variant="contained" color="primary" onClick={() => handleClickOpen()}>
-          Start New Match
-        </Button>
-      )}
-      <br />
-      {!matchStarted && !showSimpleScoreCard && (
-        <Button variant="contained" color="primary" onClick={() => setOpenExtraRunsDialog(true)}>
-          Create Simple Score Card
-        </Button>
+        <>
+          <Box display="flex" alignItems="center" flexDirection="column">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleClickOpen()}
+              sx={{ width: '100%', mb: 1}}
+            >
+              Start A New Match
+            </Button>
+            <Box display="flex" alignItems="center" justifyContent="center" my={2}>
+              <Typography variant="body1" color="testSecondary">
+                OR
+              </Typography>
+            </Box>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => setOpenExtraRunsDialog(true)}
+              sx={{ width: '100%', mb: 2 }}
+            >
+              Create A Simple Score Counter
+            </Button>
+          </Box>
+        </>
       )}
       {MatchDetailsDialog()}
       {SnackBar()}
