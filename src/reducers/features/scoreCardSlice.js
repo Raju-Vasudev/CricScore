@@ -141,10 +141,16 @@ export const scoreCardSlice = createSlice({
       state.innings[state.currentInning].deliveryMapInEachOver.push(action.payload);
       state.isOverCompleted = false;
     },
+    editScoreCard: (state, action) => {
+      state.innings[state.currentInning].runs = action.payload.runs;
+      state.innings[state.currentInning].wickets = action.payload.wickets;
+      state.innings[state.currentInning].completedOvers = action.payload.overs;
+    },
   },
 });
 
 export const {
+  editScoreCard,
   startSimpleScoreCard,
   startMatch,
   reset,

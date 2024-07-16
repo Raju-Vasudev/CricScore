@@ -115,8 +115,8 @@ function DeliveryMap({ deliveries, updateDeliveries }) {
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
             <Typography sx={{ color: 'red' }}>
-              You cannot modify but only delete, it is irreversible. Are you sure you want to
-              delete this delivery?
+              You cannot modify but only delete, it is irreversible. Are you sure you want to delete
+              this delivery?
             </Typography>
           </DialogContentText>
         </DialogContent>
