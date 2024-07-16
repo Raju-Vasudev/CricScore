@@ -13,7 +13,6 @@ const ScoreScreen = () => {
   const deliveries = useSelector(
     (state) => state.scoreCard.innings[currentInning].deliveryMapInEachOver,
   );
-  console.log('deliveries', deliveries);
   const currentInnings = innings[currentInning];
   return (
     <>

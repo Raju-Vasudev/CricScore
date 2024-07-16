@@ -78,7 +78,6 @@ export const scoreCardSlice = createSlice({
     },
     addExtra: (state, action) => {
       const { type, runs } = action.payload;
-      console.log('isGullyModeCricketMode', state.isGullyModeCricketMode);
       if (
         state.isGullyModeCricketMode.EnableExtraRunsForWide &&
         state.isGullyModeCricketMode.EnableExtraRunsForNoBall
@@ -134,7 +133,6 @@ export const scoreCardSlice = createSlice({
     },
     startSimpleScoreCard: (state, action) => {
       state.showSimpleScoreCard = true;
-      console.log('pl', action.payload);
       state.isGullyModeCricketMode.EnableExtraRunsForNoBall =
         action.payload.EnableExtraRunsForNoBall;
       state.isGullyModeCricketMode.EnableExtraRunsForWide = action.payload.EnableExtraRunsForWide;

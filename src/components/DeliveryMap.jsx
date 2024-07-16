@@ -1,7 +1,14 @@
 import React from 'react';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 import './DeliveryMap.css';
 
-function DeliveryMap({ deliveries }) {
+function DeliveryMap({ deliveries, updateDeliveries }) {
   const containerRef = React.useRef(null);
   const maxDotsPerRow = 6;
   const svgWidth = 400;
@@ -10,6 +17,8 @@ function DeliveryMap({ deliveries }) {
   const spaceBetween = svgWidth / maxDotsPerRow;
   const numberOfRows = Math.ceil(deliveries.length / maxDotsPerRow);
   const svgHeight = numberOfRows * rowHeight;
+  const [selectedItemIndex, setSelectedItemIndex] = React.useState(null);
+  const [openDialog, setOpenDialog] = React.useState(false);
 
   // Adjusted function to calculate the position of each dot based on row direction
   const calculatePosition = (index) => {
@@ -72,31 +81,96 @@ function DeliveryMap({ deliveries }) {
     lastDot.scrollIntoView({ behavior: 'smooth', block: 'end' });
   }, [deliveries]);
 
-  return (
-    <div className="dotContainer" ref={containerRef}>
-      <svg width={svgWidth} height={svgHeight} style={{ border: '1px solid black' }}>
-        {deliveries.map((delivery, index) => {
-          const { x, y } = calculatePosition(index);
-          const lines = drawLines(index);
+  const handleCircleClick = (index) => {
+    handleClickOpen(index);
+  };
 
-          return (
-            <React.Fragment key={index}>
-              {lines}
-              <circle cx={x} cy={y} r={dotRadius} fill="white" />
-              <text
-                x={x}
-                y={y + dotRadius / 2 - 5}
-                dominantBaseline="middle"
-                textAnchor="middle"
-                style={{ fontSize: '15px', fontWeight: 'bold', userSelect: 'none' }}
-              >
-                {delivery}
-              </text>
-            </React.Fragment>
-          );
-        })}
-      </svg>
-    </div>
+  const handleClickOpen = (index) => {
+    setOpenDialog(true);
+    setSelectedItemIndex(index);
+  };
+
+  const handleConfirmDelete = () => {
+    // const isConfirmed = window.confirm('Are you sure you want to delete this delivery?');
+    // if (isConfirmed) {
+    //   updateDeliveries(index);
+    // }
+    updateDeliveries(selectedItemIndex);
+    setOpenDialog(false);
+  };
+
+  const handleClose = () => {
+    setOpenDialog(false);
+  };
+
+  const renderDialogBox = () => {
+    return (
+      <Dialog
+        open={openDialog}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{'Confirm Deletion'}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            <Typography sx={{ color: 'red' }}>
+              You cannot modify but only delete, it is irreversible. Are you sure you want to
+              delete this delivery?
+            </Typography>
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button variant="contained" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="contained" color="error" onClick={handleConfirmDelete} autoFocus>
+            Confirm
+          </Button>
+        </DialogActions>
+      </Dialog>
+    );
+  };
+
+  return (
+    <>
+      <div className="dotContainer" ref={containerRef}>
+        <svg width={svgWidth} height={svgHeight} style={{ border: '1px solid black' }}>
+          {deliveries.map((delivery, index) => {
+            const { x, y } = calculatePosition(index);
+            const lines = drawLines(index);
+
+            return (
+              <React.Fragment key={index}>
+                {lines}
+                <circle
+                  cx={x}
+                  cy={y}
+                  r={dotRadius}
+                  fill="white"
+                  onClick={() => handleCircleClick(index)}
+                />
+                <text
+                  x={x}
+                  y={y + dotRadius / 2 - 5}
+                  dominantBaseline="middle"
+                  textAnchor="middle"
+                  style={{
+                    fontSize: '15px',
+                    fontWeight: 'bold',
+                    userSelect: 'none',
+                    pointerEvents: 'none',
+                  }}
+                >
+                  {delivery}
+                </text>
+              </React.Fragment>
+            );
+          })}
+        </svg>
+      </div>
+      {renderDialogBox()}
+    </>
   );
 }
 

@@ -94,6 +94,10 @@ const ActionButtons = () => {
   const handleDelivery = (outcome) => {
     setDeliveries((deliveries) => [...deliveries, outcome]);
   };
+  const updateDeliveries = (selectedIndex) => {
+    const uDeliveries = deliveries.filter((_, index) => index != selectedIndex);
+    setDeliveries(uDeliveries);
+  };
   React.useEffect(() => {
     if (isOverCompleted) {
       dispatch(setDeliveryMapInEachOver(deliveries));
@@ -103,7 +107,9 @@ const ActionButtons = () => {
   return (
     ((matchStarted && !inningsCompleted) || showSimpleScoreCard) && (
       <>
-        {deliveries.length > 0 && <DeliveryMap deliveries={deliveries} />}
+        {deliveries.length > 0 && (
+          <DeliveryMap deliveries={deliveries} updateDeliveries={updateDeliveries} />
+        )}
         <div className="ActionsContainer">
           <Button variant="outlined" className="button" onClick={() => handleRun(0)}>
             Dot Ball
