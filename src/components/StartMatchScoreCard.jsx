@@ -11,10 +11,9 @@ import {
   Snackbar,
   DialogContentText,
 } from '@mui/material';
-import MatchModeScreen from './MatchModeScreen';
 
 const StartMatchScoreCard = () => {
-  const { teamDetails, currentInning, matchStarted, totalOvers, target, showSimpleScoreCard } =
+  const { matchStarted, showSimpleScoreCard } =
     useSelector((state) => state.scoreCard);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -23,10 +22,23 @@ const StartMatchScoreCard = () => {
   const [teamOneName, setTeamOneName] = useState('');
   const [teamTwoName, setTeamTwoName] = useState('');
   const [totalMatchOvers, setTotalMatchOvers] = useState(0);
+
+  const parseTotalOvers = (input) => {
+    if (typeof input !== 'string') {
+      return 0;
+    }
+    const cleanedInput = input.trim().replace(/[^0-9]/g, '');
+    const totalOvers = parseInt(cleanedInput, 10); // Use parseInt for whole numbers
+    if (isNaN(totalOvers) || totalOvers < 0) {
+      return 0;
+    }
+    return totalOvers;
+  };
   const handleStartMatch = () => {
-    if (teamOneName === '' || teamTwoName === '') {
+    if (teamOneName === '' || teamTwoName === '' || totalMatchOvers === 0 || totalMatchOvers === '' || isNaN(totalMatchOvers)) {
       handleOpenSnackbar();
     }
+    console.log('totalOvers', totalMatchOvers);
     const newMatchDetails = {
       newMatch: true,
       teamDetails: [
@@ -42,7 +54,7 @@ const StartMatchScoreCard = () => {
         },
       ],
       currentInning: 0,
-      totalOvers: totalMatchOvers ? totalMatchOvers : 0,
+      totalOvers: parseTotalOvers(totalMatchOvers),
     };
     dispatch(startMatch(newMatchDetails));
     handleClose();
@@ -126,15 +138,16 @@ const StartMatchScoreCard = () => {
     return (
       <Snackbar
         open={snackbarOpen}
-        autoHideDuration={1000}
+        autoHideDuration={5000}
         onClose={handleCloseSnackbar}
-        message="Starting match with default team names"
+        message="Starting match with default values"
         anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
         ContentProps={{
           style: {
-            backgroundColor: 'blue',
+            backgroundColor: 'grey',
             color: 'white',
             fontWeight: 'bold',
+            fontSize: '1.5rem',
           },
         }}
       />
@@ -180,15 +193,6 @@ const StartMatchScoreCard = () => {
           Create Simple Score Card
         </Button>
       )}
-      {/* {matchStarted && (
-        <div>
-          <h2>Match Details</h2>
-          <h3>Team 1: {teamDetails[0].name}</h3>
-          <h3>Team 2: {teamDetails[1].name}</h3>
-          <h3>Total Overs: {totalOvers}</h3>
-          {currentInning > 0 && <h3>Target: {target}</h3>}
-        </div>
-      )} */}
       {MatchDetailsDialog()}
       {SnackBar()}
       {ExtraRunsConfirmationDialog()}

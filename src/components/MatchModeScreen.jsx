@@ -109,7 +109,7 @@ function MatchModeScreen() {
               <Typography variant="h6" align="center" sx={{ marginTop: 2 }}>
                 Total Overs: {totalOvers}
               </Typography>
-              {currentInning >= 0 && (
+              {currentInning > 0 && (
                 <Typography variant="h6" align="center">
                   Target: {target}
                 </Typography>

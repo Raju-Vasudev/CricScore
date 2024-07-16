@@ -126,10 +126,18 @@ export const scoreCardSlice = createSlice({
     reset: (state) => {
       const showSimpleScoreCard = state.showSimpleScoreCard;
       const isGullyModeCricketMode = state.isGullyModeCricketMode;
+      const matchStarted = state.matchStarted;
+      const currentInning = state.currentInning;
+      const teamDetails = state.teamDetails;
+      const totalOvers = state.totalOvers;
       return {
         ...initialState,
         showSimpleScoreCard,
         isGullyModeCricketMode,
+        matchStarted,
+        currentInning,
+        teamDetails,
+        totalOvers,
       };
     },
     startMatch: (state, action) => {
