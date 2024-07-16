@@ -123,7 +123,15 @@ export const scoreCardSlice = createSlice({
         }
       }
     },
-    reset: () => initialState,
+    reset: (state) => {
+      const showSimpleScoreCard = state.showSimpleScoreCard;
+      const isGullyModeCricketMode = state.isGullyModeCricketMode;
+      return {
+        ...initialState,
+        showSimpleScoreCard,
+        isGullyModeCricketMode,
+      };
+    },
     startMatch: (state, action) => {
       state.matchStarted = action.payload.newMatch;
       state.teamDetails = action.payload.teamDetails;
@@ -133,8 +141,7 @@ export const scoreCardSlice = createSlice({
     },
     startSimpleScoreCard: (state, action) => {
       state.showSimpleScoreCard = true;
-      state.isGullyModeCricketMode.EnableExtraRunsForNoBall =
-        action.payload.EnableExtraRunsForNoBall;
+      state.isGullyModeCricketMode.EnableExtraRunsForNoBall = action.payload.EnableExtraRunsForNoBall;
       state.isGullyModeCricketMode.EnableExtraRunsForWide = action.payload.EnableExtraRunsForWide;
     },
     setDeliveryMapInEachOver: (state, action) => {
