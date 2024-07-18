@@ -45,7 +45,6 @@ const StartMatchScoreCard = () => {
     ) {
       handleOpenSnackbar();
     }
-    console.log('totalOvers', totalMatchOvers);
     const newMatchDetails = {
       newMatch: true,
       teamDetails: [

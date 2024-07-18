@@ -42,6 +42,7 @@ const initialState = {
     EnableExtraRunsForNoBall: false,
   },
   isOverCompleted: false,
+  isScoreEdited: false,
 };
 
 export const scoreCardSlice = createSlice({
@@ -55,7 +56,17 @@ export const scoreCardSlice = createSlice({
       state.innings[state.currentInning].wickets += 1;
     },
     addBall: (state) => {
+      if(state.isScoreEdited){
+        state.isScoreEdited = false;
+        const overAndBalls = state.innings[state.currentInning].completedOvers.toString().split(".");
+        const externalOvers = overAndBalls[0] ? parseInt(overAndBalls[0]) : 0;
+        const externalBalls = overAndBalls[1] ? parseInt(overAndBalls[1]) : 0;
+        const totalBallsFromCompletedOvers = externalBalls + (externalOvers * 6);
+        state.innings[state.currentInning].totalBallsBowled = totalBallsFromCompletedOvers+1;
+      }
+      else{
       state.innings[state.currentInning].totalBallsBowled += 1;
+      }
       const overs = Math.floor(state.innings[state.currentInning].totalBallsBowled / 6);
       const balls = state.innings[state.currentInning].totalBallsBowled % 6;
       const oc = overs + balls / 10;
@@ -161,6 +172,7 @@ export const scoreCardSlice = createSlice({
       state.innings[state.currentInning].runs = action.payload.runs;
       state.innings[state.currentInning].wickets = action.payload.wickets;
       state.innings[state.currentInning].completedOvers = action.payload.overs;
+      state.isScoreEdited = true;
     },
   },
 });

@@ -38,8 +38,14 @@ const ScoreScreen = () => {
   };
 
   const handleOversChange = (e) => {
-    const newValue = parseFloat(e.target.value.replace(/[^0-9.]/g, ''));
-    setOvers(isNaN(newValue) ? 0 : newValue);
+    let { value } = e.target;
+    value = value.replace(/^0+(\d)/, '$1');
+    const regex = /^[0-9]*\.?[1-6]?$/;
+    if (regex.test(value)) {
+      setOvers(value);
+    } else if (value === '') {
+      setOvers(value);
+    }
   };
   const updateScoreAndOvers = () => {
     dispatch(editScoreCard({ runs, wickets, overs }));
