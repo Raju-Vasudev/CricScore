@@ -1,6 +1,6 @@
 import './App.css';
 import HomeScorePage from './pages/HomeScorePage';
-import ToggleThemeButton from './components/ToggleThemeButton';
+// import ToggleThemeButton from './components/ToggleThemeButton';
 
 function App() {
   return (

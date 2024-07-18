@@ -6,10 +6,6 @@ import {
   addWicket,
   addBall,
   addExtra,
-  decrementRuns,
-  decrementBall,
-  decrementExtra,
-  decrementWickets,
   reset,
   setDeliveryMapInEachOver,
 } from '../reducers/features/ScoreCardSlice';
@@ -19,19 +15,15 @@ import DeliveryMap from './DeliveryMap';
 const ActionButtons = () => {
   const dispatch = useDispatch();
   const {
-    innings,
-    currentInning,
     inningsCompleted,
     matchStarted,
     showSimpleScoreCard,
     isOverCompleted,
   } = useSelector((state) => state.scoreCard);
   const [actionHistory, setActionHistory] = useState([]);
-  const [canUndo, setCanUndo] = useState(false);
   const [deliveries, setDeliveries] = useState([]);
   const updateActionHistory = (action) => {
     setActionHistory([...actionHistory, action]);
-    setCanUndo(true);
   };
   const handleRun = (runs) => {
     dispatch(incrementRuns(runs));
@@ -54,38 +46,37 @@ const ActionButtons = () => {
     handleDelivery('W');
     updateActionHistory({ action: 'wicket' });
   };
-  const handleUndo = () => {
-    if (canUndo && actionHistory.length) {
-      if (!actionHistory.length) return;
-      const newActionHistory = actionHistory.slice(0, -1);
-      const lastAction = actionHistory.pop();
-      setActionHistory(newActionHistory);
-      switch (lastAction.action) {
-        case 'run':
-          dispatch(decrementRuns(lastAction.runs));
-          dispatch(decrementBall());
-          break;
-        case 'extra':
-          dispatch(decrementExtra({ type: lastAction.type, runs: 1 }));
-          dispatch(decrementRuns(1));
-          if (lastAction.type !== 'noBall' && lastAction.type !== 'wide') {
-            dispatch(decrementBall());
-          }
-          break;
-        case 'wicket':
-          dispatch(decrementWickets());
-          dispatch(decrementBall());
-          break;
-        default:
-          break;
-      }
-      setCanUndo(false);
-    }
-  };
+  // const handleUndo = () => {
+  //   if (canUndo && actionHistory.length) {
+  //     if (!actionHistory.length) return;
+  //     const newActionHistory = actionHistory.slice(0, -1);
+  //     const lastAction = actionHistory.pop();
+  //     setActionHistory(newActionHistory);
+  //     switch (lastAction.action) {
+  //       case 'run':
+  //         dispatch(decrementRuns(lastAction.runs));
+  //         dispatch(decrementBall());
+  //         break;
+  //       case 'extra':
+  //         dispatch(decrementExtra({ type: lastAction.type, runs: 1 }));
+  //         dispatch(decrementRuns(1));
+  //         if (lastAction.type !== 'noBall' && lastAction.type !== 'wide') {
+  //           dispatch(decrementBall());
+  //         }
+  //         break;
+  //       case 'wicket':
+  //         dispatch(decrementWickets());
+  //         dispatch(decrementBall());
+  //         break;
+  //       default:
+  //         break;
+  //     }
+  //     setCanUndo(false);
+  //   }
+  // };
   const handleReset = () => {
     dispatch(reset());
     setActionHistory([]);
-    setCanUndo(false);
     setDeliveries([]);
   };
   const handleValidBall = () => {
@@ -95,7 +86,7 @@ const ActionButtons = () => {
     setDeliveries((deliveries) => [...deliveries, outcome]);
   };
   const updateDeliveries = (selectedIndex) => {
-    const uDeliveries = deliveries.filter((_, index) => index != selectedIndex);
+    const uDeliveries = deliveries.filter((_, index) => index !== selectedIndex);
     setDeliveries(uDeliveries);
   };
   React.useEffect(() => {
@@ -103,7 +94,8 @@ const ActionButtons = () => {
       dispatch(setDeliveryMapInEachOver(deliveries));
       setDeliveries([]);
     }
-  }, [isOverCompleted]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deliveries, isOverCompleted]);
   return (
     ((matchStarted && !inningsCompleted) || showSimpleScoreCard) && (
       <>
