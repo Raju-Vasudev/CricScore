@@ -9,7 +9,7 @@ function App() {
       <header className="App-header">
         <div>{/* <ToggleThemeButton /> */}</div>
         <HomeScorePage />
-        <ScoreBoard />
+        {/* <ScoreBoard /> */}
       </header>
     </div>
   );

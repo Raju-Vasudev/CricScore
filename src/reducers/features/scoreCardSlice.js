@@ -64,7 +64,7 @@ export const scoreCardSlice = createSlice({
         const totalBallsFromCompletedOvers = externalBalls + (externalOvers * 6);
         state.innings[state.currentInning].totalBallsBowled = totalBallsFromCompletedOvers+1;
       }
-      else{
+      else{   
       state.innings[state.currentInning].totalBallsBowled += 1;
       }
       const overs = Math.floor(state.innings[state.currentInning].totalBallsBowled / 6);

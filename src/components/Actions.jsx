@@ -20,6 +20,10 @@ const ActionButtons = () => {
     showSimpleScoreCard,
     isOverCompleted,
   } = useSelector((state) => state.scoreCard);
+  const completedOvers = useSelector(
+    (state) => state.scoreCard.innings[state.scoreCard.currentInning].completedOvers,
+  );
+  const dmineo = useSelector((state) => state.scoreCard.innings[state.scoreCard.currentInning].deliveryMapInEachOver);
   const [actionHistory, setActionHistory] = useState([]);
   const [deliveries, setDeliveries] = useState([]);
   const updateActionHistory = (action) => {
@@ -83,8 +87,13 @@ const ActionButtons = () => {
     dispatch(addBall());
   };
   const handleDelivery = (outcome) => {
-    setDeliveries((deliveries) => [...deliveries, outcome]);
+    setDeliveries((deliveries) => [...deliveries, outcome]); 
   };
+  // React.useEffect(() => {
+  //   console.log("deliveryMapInEachOver", dmineo);
+  //   console.log("deliveries", deliveries);
+  //   console.log("completedOvers", completedOvers);
+  // }, [deliveries]);
   const updateDeliveries = (selectedIndex) => {
     const uDeliveries = deliveries.filter((_, index) => index !== selectedIndex);
     setDeliveries(uDeliveries);
