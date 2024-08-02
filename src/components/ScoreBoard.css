@@ -1,0 +1,29 @@
+.ScoreBoard {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+  width: 100%;
+}
+
+.circle {
+  display: inline-block;
+  width: 23px;
+  height: 23px;
+  line-height: 23px;
+  border-radius: 50%;
+  background-color: #850606;
+  text-align: center;
+  margin: 1px;
+  font-size: 12px;
+  border: 1px solid #fff; 
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px #fff inset; 
+}
+.over-details {
+  /* margin-top: 5px; */
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
