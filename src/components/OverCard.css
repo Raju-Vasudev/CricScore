@@ -1,0 +1,26 @@
+.circle {
+  display: inline-block;
+  width: 25px;
+  height: 25px;
+  line-height: 25px;
+  border-radius: 50%;
+  background-color: #c52121;
+  text-align: center;
+  margin: 2px;
+  font-size: 12px;
+  border: 1px solid #fff;
+  color: white;
+  font-size: 9px;
+  font-weight: bold;
+  box-shadow: 0 0 0 2px #fff inset;
+}
+
+.over-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+}
+
+.over-count {
+  margin-bottom: 8px;
+}
