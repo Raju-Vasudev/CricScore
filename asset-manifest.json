@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/CricScore/static/css/main.016b3dec.css",
-    "main.js": "/CricScore/static/js/main.281622b1.js",
+    "main.css": "/CricScore/static/css/main.cc973a4e.css",
+    "main.js": "/CricScore/static/js/main.895a7c92.js",
     "static/js/453.924fbb3d.chunk.js": "/CricScore/static/js/453.924fbb3d.chunk.js",
     "index.html": "/CricScore/index.html",
-    "main.016b3dec.css.map": "/CricScore/static/css/main.016b3dec.css.map",
-    "main.281622b1.js.map": "/CricScore/static/js/main.281622b1.js.map",
+    "main.cc973a4e.css.map": "/CricScore/static/css/main.cc973a4e.css.map",
+    "main.895a7c92.js.map": "/CricScore/static/js/main.895a7c92.js.map",
     "453.924fbb3d.chunk.js.map": "/CricScore/static/js/453.924fbb3d.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.016b3dec.css",
-    "static/js/main.281622b1.js"
+    "static/css/main.cc973a4e.css",
+    "static/js/main.895a7c92.js"
   ]
 }
