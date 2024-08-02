@@ -10,8 +10,8 @@ import './DeliveryMap.css';
 
 function DeliveryMap({ deliveries, updateDeliveries }) {
   const containerRef = React.useRef(null);
+  const [svgWidth, setSvgWidth] = React.useState(400);
   const maxDotsPerRow = 6;
-  const svgWidth = 400;
   const rowHeight = 50;
   const dotRadius = 15;
   const spaceBetween = svgWidth / maxDotsPerRow;
@@ -19,6 +19,21 @@ function DeliveryMap({ deliveries, updateDeliveries }) {
   const svgHeight = numberOfRows * rowHeight;
   const [selectedItemIndex, setSelectedItemIndex] = React.useState(null);
   const [openDialog, setOpenDialog] = React.useState(false);
+
+  React.useEffect(() => {
+    const updateSvgWidth = () => {
+      if (containerRef.current) {
+        setSvgWidth(containerRef.current.clientWidth);
+      }
+    };
+
+    updateSvgWidth();
+    window.addEventListener('resize', updateSvgWidth);
+
+    return () => {
+      window.removeEventListener('resize', updateSvgWidth);
+    };
+  }, []);
 
   // Adjusted function to calculate the position of each dot based on row direction
   const calculatePosition = (index) => {
