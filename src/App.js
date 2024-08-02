@@ -6,11 +6,13 @@ import HomeScorePage from './pages/HomeScorePage';
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <div>{/* <ToggleThemeButton /> */}</div>
+      {/* <header className="App-header"> */}
+        {/* <div><ToggleThemeButton /></div> */}
+      {/* </header> */}
+      <div className="App-body">
         <HomeScorePage />
         <ScoreBoard />
-      </header>
+      </div>
     </div>
   );
 }

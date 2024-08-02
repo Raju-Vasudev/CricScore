@@ -165,6 +165,7 @@ const ActionButtons = () => {
             color="secondary"
             className="button"
             onClick={() => handleReset()}
+            sx={{ flexGrow: 1 }}
           >
             Reset
           </Button>
