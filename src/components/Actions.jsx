@@ -8,6 +8,7 @@ import {
   addExtra,
   reset,
   setDeliveryMapInEachOver,
+  toggleScoreCard,
 } from '../reducers/features/ScoreCardSlice';
 import './Actions.css';
 import DeliveryMap from './DeliveryMap';
@@ -19,11 +20,14 @@ const ActionButtons = () => {
     matchStarted,
     showSimpleScoreCard,
     isOverCompleted,
+    toggleScoreCardFlag,
   } = useSelector((state) => state.scoreCard);
   const completedOvers = useSelector(
     (state) => state.scoreCard.innings[state.scoreCard.currentInning].completedOvers,
   );
-  const dmineo = useSelector((state) => state.scoreCard.innings[state.scoreCard.currentInning].deliveryMapInEachOver);
+  const dmineo = useSelector(
+    (state) => state.scoreCard.innings[state.scoreCard.currentInning].deliveryMapInEachOver,
+  );
   const [actionHistory, setActionHistory] = useState([]);
   const [deliveries, setDeliveries] = useState([]);
   const updateActionHistory = (action) => {
@@ -86,14 +90,12 @@ const ActionButtons = () => {
   const handleValidBall = () => {
     dispatch(addBall());
   };
-  const handleDelivery = (outcome) => {
-    setDeliveries((deliveries) => [...deliveries, outcome]); 
+  const handleViewScorecard = () => {
+    dispatch(toggleScoreCard());
   };
-  // React.useEffect(() => {
-  //   console.log("deliveryMapInEachOver", dmineo);
-  //   console.log("deliveries", deliveries);
-  //   console.log("completedOvers", completedOvers);
-  // }, [deliveries]);
+  const handleDelivery = (outcome) => {
+    setDeliveries((deliveries) => [...deliveries, outcome]);
+  };
   const updateDeliveries = (selectedIndex) => {
     const uDeliveries = deliveries.filter((_, index) => index !== selectedIndex);
     setDeliveries(uDeliveries);
@@ -103,7 +105,7 @@ const ActionButtons = () => {
       dispatch(setDeliveryMapInEachOver(deliveries));
       setDeliveries([]);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deliveries, isOverCompleted]);
   return (
     ((matchStarted && !inningsCompleted) || showSimpleScoreCard) && (
@@ -165,6 +167,9 @@ const ActionButtons = () => {
             onClick={() => handleReset()}
           >
             Reset
+          </Button>
+          <Button onClick={() => handleViewScorecard()} sx={{ flexGrow: 2 }}>
+            {toggleScoreCardFlag ? 'Hide Scorecard' : 'Show Scorecard'}
           </Button>
         </div>
       </>

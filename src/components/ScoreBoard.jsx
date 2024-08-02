@@ -8,15 +8,14 @@ import {
   CardContent,
   Grid,
   List,
-  ListItem,
-  ListItemText,
-  Chip,
 } from '@mui/material';
-import DeliveryMap from './DeliveryMap';
 import './ScoreBoard.css';
 import OverItem from './OverCard';
 
 function ScoreBoard() {
+  const matchStarted = useSelector((state) => state.scoreCard.matchStarted);
+  const showSimpleScoreCard = useSelector((state) => state.scoreCard.showSimpleScoreCard);
+  const toggleScoreCardFlag = useSelector((state) => state.scoreCard.toggleScoreCardFlag);
   function calculateRunsInOver(over) {
     return over.reduce((acc, curr) => {
       if (typeof curr === 'number') {
@@ -42,11 +41,9 @@ function ScoreBoard() {
   const [view, setView] = React.useState(batting);
   const toggleView = (option) => setView(option === bowling ? bowling : batting);
   return (
-    // <div className='ScoreBoard'>
-    <Container>
-      <Typography variant="h4" gutterBottom>
-        {`Inning - Scorecard`}
-      </Typography>
+    <>
+    {((matchStarted || showSimpleScoreCard) && toggleScoreCardFlag ) ?
+    <Container sx={{ margin: '10px', backgroundColor: '#f5f5f5', padding: '16px', border: '2px solid #2196F3', borderRadius: '8px' }}>
       <Grid container spacing={0}>
         <Grid item>
           <Button
@@ -72,7 +69,8 @@ function ScoreBoard() {
       {view === batting ? (
         <Card>
           <CardContent>
-            <Typography variant="h5">Batting Scorecard</Typography>
+            {/* <Typography variant="h5">Batting Scorecard</Typography> */}
+            <Typography variant="h5">Coming Soon.....</Typography>
             {/* Batting scorecard details */}
           </CardContent>
         </Card>
@@ -94,7 +92,8 @@ function ScoreBoard() {
         </Card>
       )}
     </Container>
-    // </div>
+    :null}
+    </>
   );
 }
 

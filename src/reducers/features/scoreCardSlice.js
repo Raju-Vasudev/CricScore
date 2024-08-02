@@ -43,6 +43,7 @@ const initialState = {
   },
   isOverCompleted: false,
   isScoreEdited: false,
+  toggleScoreCardFlag: false,
 };
 
 export const scoreCardSlice = createSlice({
@@ -174,6 +175,9 @@ export const scoreCardSlice = createSlice({
       state.innings[state.currentInning].completedOvers = action.payload.overs;
       state.isScoreEdited = true;
     },
+    toggleScoreCard: (state) => {
+      state.toggleScoreCardFlag = !state.toggleScoreCardFlag;
+    },
   },
 });
 
@@ -193,6 +197,7 @@ export const {
   decrementWickets,
   decrementRuns,
   setDeliveryMapInEachOver,
+  toggleScoreCard,
 } = scoreCardSlice.actions;
 
 export default scoreCardSlice.reducer;
