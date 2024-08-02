@@ -3,14 +3,39 @@
   justify-content: center;
   flex-wrap: wrap;
   gap: 20px;
-  width: calc(100% - 40px);
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
 }
+.ActionsContainer-2 {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+  padding: 0px;
+  margin: 0px;
+  margin-top: 25px;
+}
+
+.button2 {
+  width: calc((100% - 40px) / 2- 10px);
+  /* width: 50px; */
+  margin: 1px;
+  cursor: pointer;
+  transition: background-color 0.3s transform 0.3s;
+}
+
 
 .button {
   width: calc((100% - 40px) / 3 - 8px);
-  margin: 3px;
+  margin: 1px;
   cursor: pointer;
   transition: background-color 0.3s transform 0.3s;
+}
+
+.button:last-child {
+  grid-column: span 2;
 }
 
 @media (min-width: 600px) {
@@ -20,5 +45,8 @@
   }
   .button {
     width: calc((100% - 40px) / 3 - 10px);
+  }
+  .button2 {
+    width: calc((100% - 40px) / 2 - 10px);
   }
 }

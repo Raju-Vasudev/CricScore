@@ -157,25 +157,29 @@ const ActionButtons = () => {
           >
             Wide
           </Button>
-          {/* <Button variant="outlined" className="button" onClick={() => handleUndo()}>
-            Undo
-          </Button> */}
+          </div>
+          <div className="ActionsContainer-2">
           <Button
             variant="contained"
             color="secondary"
-            className="button"
+            className="button2"
             onClick={() => handleReset()}
-            sx={{ flexGrow: 1 }}
           >
             Reset
           </Button>
-          <Button onClick={() => handleViewScorecard()} sx={{ flexGrow: 2 }}>
-            {toggleScoreCardFlag ? 'Hide Scorecard' : 'Show Scorecard'}
+          <Button
+            variant="contained"
+            color="secondary"
+            className="button2"
+            onClick={() => handleViewScorecard()}
+          >
+            {toggleScoreCardFlag ? 'Hide Scorecard' : 'View Scorecard '}
           </Button>
-        </div>
+          </div>
       </>
     )
   );
 };
 
 export default ActionButtons;
+
