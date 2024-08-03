@@ -190,7 +190,7 @@ const StartMatchConfigurationDialog = () => {
     <>
       {!matchStarted && !showSimpleScoreCard && (
         <>
-          <Box display="flex" alignItems="center" flexDirection="column">
+          <Box display="flex" alignItems="center" flexDirection="column" justifyContent= "center">
             <Button
               variant="contained"
               color="primary"

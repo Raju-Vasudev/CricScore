@@ -5,9 +5,10 @@ import HomeScorePage from './pages/HomeScorePage';
 function App() {
   return (
     <div className="App">
-      {/* <header className="App-header"> */}
+      <header className="App-header">
         {/* <div><ToggleThemeButton /></div> */}
-      {/* </header> */}
+        <h1>Cric Count</h1>
+      </header>
       <div className="App-body">
         <HomeScorePage />
       </div>

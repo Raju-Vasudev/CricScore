@@ -12,7 +12,7 @@ import {
   DialogContent,
   DialogActions,
 } from '@mui/material';
-import './ScoreBoard.css';
+import './ScoreBoardDialog.css';
 import OverItem from './OverDetailsCard';
 import { toggleScoreCard } from '../reducers/features/ScoreCardSlice';
 
