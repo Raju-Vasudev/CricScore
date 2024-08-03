@@ -61,7 +61,7 @@ const calculateWinner = (state) => {
     state.winnerMessage = `Team ${state.teamDetails[1].name} won by ${runDifference} ${runWord}`;
     const oversLeft = state.totalOvers - state.innings[1].completedOvers;
     const overWord = oversLeft === 1 ? 'over' : 'overs';
-    state.winnerMessage = `Team ${state.teamDetails[1].name}`;
+    state.winnerMessage = `Team ${state.teamDetails[1].name} won the match`;
   } else {
     state.winnerMessage = 'Match tied';
   }
