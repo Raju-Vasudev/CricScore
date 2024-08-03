@@ -1,15 +1,15 @@
 import React from 'react';
 import Actions from '../components/Actions';
-import ScoreScreen from '../components/ScoreScreen';
-import StartMatchScoreCard from '../components/StartMatchScoreCard';
-import MatchModeScreen from '../components/MatchModeScreen';
+import ScoreScreen from '../components/MainScoreDisplay';
+import StartMatchConfigurationDialog from '../components/StartMatchConfigurationDialog';
+import MatchDetails from '../components/MatchDetails';
 import ScoreBoard from '../components/ScoreBoard';
 
 function HomeScorePage() {
   return (
     <>
-      <StartMatchScoreCard />
-      <MatchModeScreen />
+      <StartMatchConfigurationDialog />
+      <MatchDetails />
       <ScoreScreen />
       <Actions />
       <ScoreBoard />

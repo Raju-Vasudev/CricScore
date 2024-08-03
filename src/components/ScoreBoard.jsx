@@ -13,7 +13,7 @@ import {
   DialogActions,
 } from '@mui/material';
 import './ScoreBoard.css';
-import OverItem from './OverCard';
+import OverItem from './OverDetailsCard';
 import { toggleScoreCard } from '../reducers/features/ScoreCardSlice';
 
 function ScoreBoard() {

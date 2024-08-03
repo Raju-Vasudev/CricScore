@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
 
-function MatchModeScreen() {
+function MatchDetails() {
   const { teamDetails, currentInning, matchStarted, totalOvers, target } = useSelector(
     (state) => state.scoreCard,
   );
@@ -122,4 +122,4 @@ function MatchModeScreen() {
   );
 }
 
-export default MatchModeScreen;
+export default MatchDetails;

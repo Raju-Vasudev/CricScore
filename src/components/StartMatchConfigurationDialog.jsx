@@ -14,7 +14,7 @@ import {
   Box,
 } from '@mui/material';
 
-const StartMatchScoreCard = () => {
+const StartMatchConfigurationDialog = () => {
   const { matchStarted, showSimpleScoreCard } = useSelector((state) => state.scoreCard);
   const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
@@ -222,4 +222,4 @@ const StartMatchScoreCard = () => {
   );
 };
 
-export default StartMatchScoreCard;
+export default StartMatchConfigurationDialog;

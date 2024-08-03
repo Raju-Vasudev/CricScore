@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chip, Box, Card, CardContent } from '@mui/material';
-import './OverCard.css';
+import './OverDetailsCard.css';
 
 const OverItem = ({ index, runsInOver, wicketsInOver, over }) => {
   return (
