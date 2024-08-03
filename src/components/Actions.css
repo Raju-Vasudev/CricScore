@@ -20,7 +20,6 @@
 
 .button2 {
   width: calc((100% - 40px) / 2- 10px);
-  /* width: 50px; */
   margin: 1px;
   cursor: pointer;
   transition: background-color 0.3s transform 0.3s;
@@ -42,6 +41,10 @@
   .ActionsContainer {
     width: 370px;
     margin: 0 auto;
+  }
+  .ActionsContainer-2 {
+    width: 370px;
+    margin-top: 25px;
   }
   .button {
     width: calc((100% - 40px) / 3 - 10px);
