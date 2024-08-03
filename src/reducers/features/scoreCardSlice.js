@@ -44,6 +44,27 @@ const initialState = {
   isOverCompleted: false,
   isScoreEdited: false,
   toggleScoreCardFlag: false,
+  winnerMessage: '',
+  batFirstTeam: '',
+  bowlFirstTeam: '',
+};
+const calculateWinner = (state) => {
+  const teamAScore = state.innings[0].runs;
+  const teamBScore = state.innings[1].runs;
+  if (teamAScore > teamBScore) {
+    const runDifference = teamAScore - teamBScore;
+    const runWord = runDifference === 1 ? 'run' : 'runs';
+    state.winnerMessage = `Team ${state.teamDetails[0].name} won by ${runDifference} ${runWord}`;
+  } else if (teamAScore < teamBScore) {
+    const runDifference = state.target - teamBScore;
+    const runWord = runDifference === 1 ? 'run' : 'runs';
+    state.winnerMessage = `Team ${state.teamDetails[1].name} won by ${runDifference} ${runWord}`;
+    const oversLeft = state.totalOvers - state.innings[1].completedOvers;
+    const overWord = oversLeft === 1 ? 'over' : 'overs';
+    state.winnerMessage = `Team ${state.teamDetails[1].name}`;
+  } else {
+    state.winnerMessage = 'Match tied';
+  }
 };
 
 export const scoreCardSlice = createSlice({
@@ -52,21 +73,29 @@ export const scoreCardSlice = createSlice({
   reducers: {
     incrementRuns: (state, action) => {
       state.innings[state.currentInning].runs += action.payload;
+      if (state.currentInning === 1) {
+        if (state.innings[1].runs > state.target) {
+          calculateWinner(state); 
+          state.matchCompleted = true;
+          state.inningsCompleted = true;
+        }
+      }
     },
     addWicket: (state) => {
       state.innings[state.currentInning].wickets += 1;
     },
     addBall: (state) => {
-      if(state.isScoreEdited){
+      if (state.isScoreEdited) {
         state.isScoreEdited = false;
-        const overAndBalls = state.innings[state.currentInning].completedOvers.toString().split(".");
+        const overAndBalls = state.innings[state.currentInning].completedOvers
+          .toString()
+          .split('.');
         const externalOvers = overAndBalls[0] ? parseInt(overAndBalls[0]) : 0;
         const externalBalls = overAndBalls[1] ? parseInt(overAndBalls[1]) : 0;
-        const totalBallsFromCompletedOvers = externalBalls + (externalOvers * 6);
-        state.innings[state.currentInning].totalBallsBowled = totalBallsFromCompletedOvers+1;
-      }
-      else{   
-      state.innings[state.currentInning].totalBallsBowled += 1;
+        const totalBallsFromCompletedOvers = externalBalls + externalOvers * 6;
+        state.innings[state.currentInning].totalBallsBowled = totalBallsFromCompletedOvers + 1;
+      } else {
+        state.innings[state.currentInning].totalBallsBowled += 1;
       }
       const overs = Math.floor(state.innings[state.currentInning].totalBallsBowled / 6);
       const balls = state.innings[state.currentInning].totalBallsBowled % 6;
@@ -83,7 +112,9 @@ export const scoreCardSlice = createSlice({
           state.inningsCompleted = true;
           state.target = state.innings[0].runs + 1;
           state.currentInning = 1;
-        } else {
+        } else if (state.currentInning === 1) {
+          state.inningsCompleted = true;
+          calculateWinner(state);
           state.matchCompleted = true;
         }
       }
@@ -158,6 +189,8 @@ export const scoreCardSlice = createSlice({
       state.totalOvers = action.payload.totalOvers;
       state.currentInning = action.payload.currentInning;
       state.innings[0].totalOvers = action.payload.totalOvers;
+      state.batFirstTeam = action.payload.teamDetails[0].name;
+      state.bowlFirstTeam = action.payload.teamDetails[1].name;
     },
     startSimpleScoreCard: (state, action) => {
       state.showSimpleScoreCard = true;
@@ -177,6 +210,11 @@ export const scoreCardSlice = createSlice({
     },
     toggleScoreCard: (state) => {
       state.toggleScoreCardFlag = !state.toggleScoreCardFlag;
+    },
+    startSecondInning: (state) => {
+      state.currentInning = 1;
+      state.innings[1].totalOvers = state.totalOvers;
+      state.inningsCompleted = false;
     },
   },
 });
@@ -198,6 +236,8 @@ export const {
   decrementRuns,
   setDeliveryMapInEachOver,
   toggleScoreCard,
+  startSecondInning,
 } = scoreCardSlice.actions;
 
 export default scoreCardSlice.reducer;
+

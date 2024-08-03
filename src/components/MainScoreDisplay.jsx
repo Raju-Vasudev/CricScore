@@ -6,7 +6,7 @@ import Dialog from '@mui/material/Dialog';
 import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
-import { editScoreCard } from '../reducers/features/ScoreCardSlice';
+import { editScoreCard , startSecondInning} from '../reducers/features/ScoreCardSlice';
 
 const ScoreScreen = () => {
   const dispatch = useDispatch();
@@ -18,6 +18,8 @@ const ScoreScreen = () => {
     (state) => state.scoreCard.innings[state.scoreCard.currentInning].completedOvers,
   );
   const inningsCompleted = useSelector((state) => state.scoreCard.inningsCompleted);
+  const matchCompleted = useSelector((state) => state.scoreCard.matchCompleted);
+  const winnerMessage = useSelector((state) => state.scoreCard.winnerMessage);
   const currentInnings = innings[currentInning];
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -53,7 +55,9 @@ const ScoreScreen = () => {
     setEditMode(false);
   };
 
-  const startInnings = () => {};
+  const startInnings = () => {
+    dispatch(startSecondInning());
+  };
 
   React.useEffect(() => {
     setRuns(currentInnings.runs);
@@ -129,7 +133,7 @@ const ScoreScreen = () => {
             </div>
           ) : (
             <>
-              {currentInning ? (
+              {(currentInning && !matchCompleted ) ? (
                 <Button
                   variant="contained"
                   color="secondary"
@@ -139,7 +143,9 @@ const ScoreScreen = () => {
                   Start second innings
                 </Button>
               ) : (
-                ' Match Completed'
+                <>
+                  <h2>{winnerMessage}</h2>
+                </>
               )}
             </>
           )}
