@@ -17,6 +17,7 @@ const ScoreScreen = () => {
   const completedOvers = useSelector(
     (state) => state.scoreCard.innings[state.scoreCard.currentInning].completedOvers,
   );
+  const inningsCompleted = useSelector((state) => state.scoreCard.inningsCompleted);
   const currentInnings = innings[currentInning];
   const [dialogOpen, setDialogOpen] = useState(false);
   const [editMode, setEditMode] = useState(false);
@@ -52,6 +53,8 @@ const ScoreScreen = () => {
     setEditMode(false);
   };
 
+  const startInnings = () => {};
+
   React.useEffect(() => {
     setRuns(currentInnings.runs);
     setWickets(currentInnings.wickets);
@@ -62,67 +65,84 @@ const ScoreScreen = () => {
     <>
       {(matchStarted || showSimpleScoreCard) && (
         <>
-          <div onClick={toggleEditMode}>
-            {editMode ? (
-              <>
-                <Dialog
-                  open={dialogOpen}
-                  onClose={toggleEditMode}
-                  aria-labelledby="form-dialog-title"
+          {!inningsCompleted ? (
+            <div onClick={toggleEditMode}>
+              {editMode ? (
+                <>
+                  <Dialog
+                    open={dialogOpen}
+                    onClose={toggleEditMode}
+                    aria-labelledby="form-dialog-title"
+                  >
+                    <DialogTitle id="form-dialog-title">Edit Score</DialogTitle>
+                    <DialogContent>
+                      <TextField
+                        autoFocus
+                        margin="dense"
+                        id="runs"
+                        label="Runs"
+                        type="text"
+                        fullWidth
+                        value={runs}
+                        onChange={handleRunsChange}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                      <TextField
+                        margin="dense"
+                        id="wickets"
+                        label="Wickets"
+                        type="text"
+                        fullWidth
+                        value={wickets}
+                        onChange={handleWicketsChange}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                      <TextField
+                        margin="dense"
+                        id="overs"
+                        label="Overs"
+                        type="text"
+                        fullWidth
+                        value={overs}
+                        onChange={handleOversChange}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </DialogContent>
+                    <DialogActions>
+                      <Button onClick={toggleEditMode} variant="contained" color="primary">
+                        Cancel
+                      </Button>
+                      <Button onClick={updateScoreAndOvers} variant="contained" color="success">
+                        Update
+                      </Button>
+                    </DialogActions>
+                  </Dialog>
+                </>
+              ) : (
+                <>
+                  <h2>
+                    Score: {currentInnings.runs}/{currentInnings.wickets}
+                  </h2>
+                  <h2>Overs: {completedOvers}</h2>
+                </>
+              )}
+            </div>
+          ) : (
+            <>
+              {currentInning ? (
+                <Button
+                  variant="contained"
+                  color="secondary"
+                  className="button2"
+                  onClick={() => startInnings()}
                 >
-                  <DialogTitle id="form-dialog-title">Edit Score</DialogTitle>
-                  <DialogContent>
-                    <TextField
-                      autoFocus
-                      margin="dense"
-                      id="runs"
-                      label="Runs"
-                      type="text"
-                      fullWidth
-                      value={runs}
-                      onChange={handleRunsChange}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                    <TextField
-                      margin="dense"
-                      id="wickets"
-                      label="Wickets"
-                      type="text"
-                      fullWidth
-                      value={wickets}
-                      onChange={handleWicketsChange}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                    <TextField
-                      margin="dense"
-                      id="overs"
-                      label="Overs"
-                      type="text"
-                      fullWidth
-                      value={overs}
-                      onChange={handleOversChange}
-                      onClick={(e) => e.stopPropagation()}
-                    />
-                  </DialogContent>
-                  <DialogActions>
-                    <Button onClick={toggleEditMode} variant="contained" color="primary">
-                      Cancel
-                    </Button>
-                    <Button onClick={updateScoreAndOvers} variant="contained" color="success">
-                      Update
-                    </Button>
-                  </DialogActions>
-                </Dialog>
-              </>
-            ) : (
-              <>
-                <h2>
-                  Score: {currentInnings.runs}/{currentInnings.wickets}
-                </h2>
-                <h2>Overs: {completedOvers}</h2>
-              </>
-            )}
-          </div>
+                  Start second innings
+                </Button>
+              ) : (
+                ' Match Completed'
+              )}
+            </>
+          )}
         </>
       )}
     </>
