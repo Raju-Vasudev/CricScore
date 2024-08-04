@@ -12,7 +12,6 @@ function ToggleThemeButton() {
   };
   return (
     <Button variant="contained" color="primary" onClick={() => handleThemeChange()}>
-      {' '}
       Toggle Theme
     </Button>
   );
